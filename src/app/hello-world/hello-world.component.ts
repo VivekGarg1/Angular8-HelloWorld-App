@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {HelloWorldService} from '../service/hello-world.service';
 
 @Component({
   selector: 'app-hello-world',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HelloWorldComponent implements OnInit {
 
-  constructor() { }
+  welcomeMessage = '';
+
+  constructor(private route: ActivatedRoute, private router: Router, private helloWorldService: HelloWorldService) { }
 
   ngOnInit() {
+    this.helloWorldService.executeHelloWorldService().subscribe((res) => {
+      this.welcomeMessage = res.content;
+      console.log('Result : ', this.welcomeMessage);
+    });
   }
 
 }
